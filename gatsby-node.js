@@ -34,7 +34,7 @@ exports.createPages = ({ graphql, actions }) => {
         result.data.allMdx.edges.forEach(({ node }) => {
           createPage({
             path: node.fields.slug ? node.fields.slug : "/",
-            component: path.resolve("./src/templates/docs.js"),
+            component: require.resolve("./src/templates/docs.js"),
             context: {
               id: node.fields.id
             }
@@ -48,8 +48,8 @@ exports.createPages = ({ graphql, actions }) => {
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     resolve: {
-      modules: [path.resolve(__dirname, "src"), "node_modules"],
-      alias: { $components: path.resolve(__dirname, "src/components") }
+      modules: [require.resolve(__dirname, "src"), "node_modules"],
+      alias: { $components: require.resolve(__dirname, "src/components") }
     }
   });
 };
